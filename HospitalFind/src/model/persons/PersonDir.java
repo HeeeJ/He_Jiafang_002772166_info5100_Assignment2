@@ -8,6 +8,9 @@ public class PersonDir {
 
     public void addPerson(){}
     public void deletePerson(){}
-    public void viewPerson(){}
+    public void viewPerson(){
+        
+    }
+    
     public void updatePerson(){}
 }

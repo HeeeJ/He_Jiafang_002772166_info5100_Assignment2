@@ -4,6 +4,19 @@
  */
 package ui;
 
+
+import dao.PersonDao;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import model.persons.Person;
+import utils.StringUtil;
+
 /**
  *
  * @author jiaf
@@ -14,7 +27,9 @@ public class LoginJFrame extends javax.swing.JFrame {
      * Creates new form LoginJFrame
      */
     public LoginJFrame() {
+        
         initComponents();
+
     }
 
     /**
@@ -30,9 +45,9 @@ public class LoginJFrame extends javax.swing.JFrame {
         lblAccount = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
         txtAccount = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
         btnCreateAccount = new javax.swing.JButton();
+        pwPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,6 +77,8 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
+        pwPassword.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,7 +96,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                             .addComponent(btnCreateAccount)
                             .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(txtPassword))))
+                            .addComponent(pwPassword))))
                 .addContainerGap(128, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -94,7 +111,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pwPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -111,6 +128,26 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        String account = txtAccount.getText();
+        String password = new String(this.pwPassword.getPassword());
+        
+        //textfeild empty validation.
+        if(StringUtil.isEmpty(account)||StringUtil.isEmpty(password)){
+            JOptionPane.showMessageDialog(this, "Please provide both account and password.");
+        }else{
+            try {
+            //Initail User
+            Person user = PersonDao.login(account,password);
+            if(user != null){
+                JOptionPane.showMessageDialog(this, "Welcome.");
+            }else if(user ==null){
+                JOptionPane.showMessageDialog(this, "Wrong account or password.");
+            }
+            } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Login Error.");
+            }
+        }
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
@@ -158,7 +195,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblAccount;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JPasswordField pwPassword;
     private javax.swing.JTextField txtAccount;
-    private javax.swing.JTextField txtPassword;
     // End of variables declaration//GEN-END:variables
 }
