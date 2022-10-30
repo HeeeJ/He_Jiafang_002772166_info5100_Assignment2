@@ -1,6 +1,8 @@
 package dao;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import static dao.HospitalDao.con;
+import static dao.HospitalDao.rs;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +14,13 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import model.hospitals.Hospital;
+import model.hospitals.HospitalDir;
 import model.persons.CommunityAdmin;
 import model.persons.Doctor;
 import model.persons.DoctorDir;
 import model.persons.Patient;
+import model.persons.PatientDir;
 import model.persons.SystemAdmin;
 
 /*
@@ -325,7 +330,6 @@ public class PersonDao {
             PreparedStatement stmt = (PreparedStatement) con.prepareStatement("Select * from Persons where hospitalId=?");
             
             stmt.setInt(1, hosId);
-                            System.out.println("===11111======="+ls);
             rs = stmt.executeQuery();
             while(rs.next()){
 
@@ -346,4 +350,95 @@ public class PersonDao {
 	}
         return null;
     }
+    
+    
+    public static void updateDoctor(Doctor p){
+        int id = p.getId();
+        String name = p.getName();
+        String age = p.getAge();
+        String gender = p.getGender();
+        String major = p.getMajor();
+
+        
+        try{
+            DataSource ds = JDBCUtil.getDataSource();
+            con = ds.getConnection();
+            
+            PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Update persons"
+                    + " set name=?, age=?, gender=?, major=?"
+                    + " where id=?" );
+            stmt1.setString(1, name);
+            stmt1.setString(2, age);
+            stmt1.setString(3, gender);
+            stmt1.setString(4, major);
+            stmt1.setInt(5, id);
+            stmt1.executeUpdate();
+            
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static List<Patient> allPatientName() throws SQLException{
+        
+        List<Patient> list = new ArrayList<>();
+        
+        try {
+            DataSource ds = JDBCUtil.getDataSource();
+            con = ds.getConnection();
+            PreparedStatement stmt = (PreparedStatement) con.prepareStatement("Select id, name, age, gender, acc from persons where role=?;");
+            stmt.setString(1, "patient");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Patient tmp = new Patient();
+                
+                tmp.setId(rs.getInt("id"));
+                tmp.setName(rs.getString("name"));
+                tmp.setAccount(rs.getString("acc"));
+                tmp.setAge(rs.getString("age"));
+                tmp.setGender(rs.getString("gender"));
+                
+                list.add(tmp);                
+            }
+            
+            return list;
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+    
+    public static List<String> selectedPaDetails(String name) throws SQLException{
+        
+        List<String> list = new ArrayList<>();
+        String gender =null;
+        String age = null;
+        String account = null;
+        Integer id = 0;
+        try {
+            DataSource ds = JDBCUtil.getDataSource();
+            con = ds.getConnection();
+            PreparedStatement stmt = (PreparedStatement) con.prepareStatement("Select id, age, gender, acc from persons where role=? and name=?;");
+            stmt.setString(1, "patient");
+            stmt.setString(2, name);
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                gender = rs.getString("gender");
+                age = rs.getString("age");
+                account = rs.getString("acc");
+                id = rs.getInt("id");
+            }
+            
+            list.add(0,age);
+            list.add(1,gender);
+            list.add(2,account);
+            list.add(3,id.toString());
+            
+            return list;
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+    
 }

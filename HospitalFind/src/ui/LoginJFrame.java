@@ -59,11 +59,13 @@ public class LoginJFrame extends javax.swing.JFrame {
         pwPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Hospital Management System");
+        setTitle("Login");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setLocation(new java.awt.Point(400, 400));
-        setMaximumSize(new java.awt.Dimension(600, 400));
-        setMinimumSize(new java.awt.Dimension(600, 400));
+        setLocation(new java.awt.Point(420, 520));
+        setMaximumSize(new java.awt.Dimension(600, 600));
+        setMinimumSize(new java.awt.Dimension(350, 450));
+        setPreferredSize(new java.awt.Dimension(350, 450));
+        setResizable(false);
 
         lblTitle.setText("Find your hospital!");
 
@@ -71,7 +73,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         lblPassword.setText("Password:");
 
-        txtAccount.setText("tom");
+        txtAccount.setText("alice");
         txtAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAccountActionPerformed(evt);
@@ -92,37 +94,42 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        pwPassword.setText("t123456");
+        pwPassword.setText("a123456");
+        pwPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pwPasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTitle)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(lblTitle))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPassword)
                             .addComponent(lblAccount))
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                                .addComponent(pwPassword))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCreateAccount)))))
-                .addContainerGap(222, Short.MAX_VALUE))
+                                .addComponent(txtAccount)
+                                .addComponent(pwPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCreateAccount))))
+                .addGap(0, 58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(62, 62, 62)
+                .addGap(43, 43, 43)
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAccount)
                     .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -131,10 +138,10 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addComponent(lblPassword)
                     .addComponent(pwPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCreateAccount))
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCreateAccount)
+                .addContainerGap(177, Short.MAX_VALUE))
         );
 
         pack();
@@ -210,6 +217,10 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCreateAccountActionPerformed
+
+    private void pwPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pwPasswordActionPerformed
 
     /**
      * @param args the command line arguments

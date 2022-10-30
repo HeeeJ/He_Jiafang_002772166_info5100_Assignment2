@@ -1,5 +1,6 @@
 package model.persons.encounters;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Encounter{
@@ -8,7 +9,7 @@ public class Encounter{
     private int patientId;
     private int hosId;
     private int docId;
-    private Date date;
+    private LocalDate date;
 
     private int vsId;
     private String docAdvice;
@@ -81,11 +82,11 @@ public class Encounter{
         this.docId = docId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
