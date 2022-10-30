@@ -2,6 +2,8 @@ package model.persons;
 
 public class CommunityAdmin extends Person{
     
+    
+    
     private int comId;
 
     public int getId() {
@@ -67,9 +69,9 @@ public class CommunityAdmin extends Person{
     public void setComId(int comId) {
         this.comId = comId;
     }
+
+    public CommunityAdmin() {
+    }
     
     
-    public void addHouse(){}
-    public void removeHouse(){}
-    public void veiwHouse(){}
 }
