@@ -14,7 +14,11 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.persons.CommunityAdmin;
+import model.persons.Doctor;
+import model.persons.Patient;
 import model.persons.Person;
+import model.persons.SystemAdmin;
 import utils.StringUtil;
 
 /**
@@ -26,8 +30,13 @@ public class LoginJFrame extends javax.swing.JFrame {
     /**
      * Creates new form LoginJFrame
      */
-    public LoginJFrame() {
+    private String userRole = null;
+    
+    public LoginJFrame(){}
+    
+    public LoginJFrame(String role) {
         
+        userRole = role;
         initComponents();
 
     }
@@ -49,14 +58,20 @@ public class LoginJFrame extends javax.swing.JFrame {
         btnCreateAccount = new javax.swing.JButton();
         pwPassword = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Hospital Management System");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setLocation(new java.awt.Point(400, 400));
+        setMaximumSize(new java.awt.Dimension(600, 400));
+        setMinimumSize(new java.awt.Dimension(600, 400));
 
-        lblTitle.setText("Find Your Hospital");
+        lblTitle.setText("Find your hospital!");
 
         lblAccount.setText("Account:");
 
         lblPassword.setText("Password:");
 
+        txtAccount.setText("tom");
         txtAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAccountActionPerformed(evt);
@@ -70,14 +85,14 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        btnCreateAccount.setText("Sign Up");
+        btnCreateAccount.setText("New Here?");
         btnCreateAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateAccountActionPerformed(evt);
             }
         });
 
-        pwPassword.setText("jPasswordField1");
+        pwPassword.setText("t123456");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,12 +107,15 @@ public class LoginJFrame extends javax.swing.JFrame {
                             .addComponent(lblPassword)
                             .addComponent(lblAccount))
                         .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCreateAccount)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(pwPassword))))
-                .addContainerGap(128, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                .addComponent(pwPassword))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCreateAccount)))))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,10 +131,10 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addComponent(lblPassword)
                     .addComponent(pwPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCreateAccount)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCreateAccount))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,12 +155,51 @@ public class LoginJFrame extends javax.swing.JFrame {
         }else{
             try {
             //Initail User
-            Person user = PersonDao.login(account,password);
-            if(user != null){
-                JOptionPane.showMessageDialog(this, "Welcome.");
-            }else if(user ==null){
-                JOptionPane.showMessageDialog(this, "Wrong account or password.");
-            }
+                
+                if(userRole == "patient"){
+                    Patient patient = PersonDao.patientlogin(account, password);
+                    if(patient != null){  
+                        PatientHomeFrame patientHomeFrame = new PatientHomeFrame(patient);
+                        patientHomeFrame.setVisible(true);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Check your role, account and password.");
+                    }
+                        
+                }
+                
+                else if(userRole == "doctor"){
+                    Doctor doc = PersonDao.doclogin(account, password);
+                    if(doc != null){
+                        DoctorHomeFrame doctorHomeFrame = new DoctorHomeFrame(doc);
+                        doctorHomeFrame.setVisible(true);
+                    }else
+                        JOptionPane.showMessageDialog(this, "Check your role, account and password.");
+                    
+                    
+                }
+                else if(userRole == "comAdmin"){
+                    CommunityAdmin ca = PersonDao.calogin(account, password);
+                    if(ca != null){
+                        ComAdminFrame caf = new ComAdminFrame(ca) ;
+                        caf.setVisible(true);
+                    }else
+                       JOptionPane.showMessageDialog(this, "Check your role, account and password.");
+                }
+                else if(userRole == "sysAdmin" ){
+                    SystemAdmin sa = PersonDao.salogin(account, password);
+                    if(sa != null){
+                        SysAdFrame saf = new SysAdFrame(sa);
+                        saf.setVisible(true);
+                    }else
+                        JOptionPane.showMessageDialog(this, "Check your role, account and password.");
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Login Error. Please check your role selection.");
+                }
+                                
+                dispose();//dispose login frame
+
             } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Login Error.");
             }
@@ -157,37 +214,6 @@ public class LoginJFrame extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginJFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCreateAccount;
