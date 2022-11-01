@@ -34,7 +34,6 @@ import utils.StringUtil;
 public class PatientHomeFrame extends javax.swing.JFrame {
 
     private Patient patient;
-    String photo_path;
     
     public PatientHomeFrame() {
    
@@ -57,7 +56,6 @@ public class PatientHomeFrame extends javax.swing.JFrame {
         btnSave.setEnabled(false);
         btnMale.setEnabled(false);
         btnFemale.setEnabled(false);
-        btnPhoto.setEnabled(false);
         cboxCity.setEnabled(false);
         cboxCom.setEnabled(false);
         cboxHome.setEnabled(false);
@@ -93,10 +91,6 @@ public class PatientHomeFrame extends javax.swing.JFrame {
         cboxCity.setSelectedItem(address.get(2));
         
         
-        
-//        photo_path = patient.getPhoto();
-//        ImageIcon photo = new ImageIcon(new ImageIcon(photo_path).getImage().getScaledInstance(110, 130, Image.SCALE_SMOOTH));
-//        lblPhoto.setIcon(photo);
 
     }
     
@@ -105,7 +99,6 @@ public class PatientHomeFrame extends javax.swing.JFrame {
         txtAge.setEditable(true);
         btnMale.setEnabled(true);
         btnFemale.setEnabled(true);
-        btnPhoto.setEnabled(true);
         btnSave.setEnabled(true);
         
         cboxHome.setEnabled(true);
@@ -128,8 +121,6 @@ public class PatientHomeFrame extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         lblAge = new javax.swing.JLabel();
-        btnPhoto = new javax.swing.JButton();
-        lblPhoto = new javax.swing.JLabel();
         btnMale = new javax.swing.JRadioButton();
         lblName = new javax.swing.JLabel();
         btnFemale = new javax.swing.JRadioButton();
@@ -185,14 +176,6 @@ public class PatientHomeFrame extends javax.swing.JFrame {
         lblAge.setFont(new java.awt.Font("Monaco", 0, 12)); // NOI18N
         lblAge.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblAge.setText("Age:");
-
-        btnPhoto.setFont(new java.awt.Font("Monaco", 0, 12)); // NOI18N
-        btnPhoto.setText("Choose Photo");
-        btnPhoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPhotoActionPerformed(evt);
-            }
-        });
 
         bgGender.add(btnMale);
         btnMale.setFont(new java.awt.Font("Monaco", 0, 12)); // NOI18N
@@ -251,37 +234,32 @@ public class PatientHomeFrame extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnSave)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblGender)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnMale))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(lblGender)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnMale))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblName)
-                                            .addComponent(lblAge))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
-                                            .addComponent(txtName)))
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnFemale, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblAddress))
+                                    .addComponent(lblName)
+                                    .addComponent(lblAge))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnPhoto)))
-                            .addComponent(btnUpdate))
-                        .addContainerGap(51, Short.MAX_VALUE))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                                    .addComponent(txtName)))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnFemale, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblAddress))
+                        .addContainerGap(93, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cboxCom, 0, 220, Short.MAX_VALUE)
-                            .addComponent(cboxCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSave)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cboxCom, 0, 220, Short.MAX_VALUE)
+                                .addComponent(cboxCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnUpdate))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,48 +271,39 @@ public class PatientHomeFrame extends javax.swing.JFrame {
                         .addComponent(cboxHome, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnPhoto, lblPhoto});
-
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblName)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblAge)
-                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblGender)
-                            .addComponent(btnMale)
-                            .addComponent(btnFemale)))
-                    .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAge)
+                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGender)
+                    .addComponent(btnMale)
+                    .addComponent(btnFemale))
                 .addGap(12, 12, 12)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblAddress))
-                    .addComponent(btnPhoto))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblAddress)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboxHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboxCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cboxCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSave)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUpdate)
-                .addGap(17, 17, 17))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Personal", jPanel3);
@@ -391,7 +360,7 @@ public class PatientHomeFrame extends javax.swing.JFrame {
                         .addComponent(lblTitle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblTitle1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnView)))
@@ -468,7 +437,7 @@ public class PatientHomeFrame extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(lblTitle2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnEncounter)))
@@ -492,7 +461,7 @@ public class PatientHomeFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -527,87 +496,6 @@ public class PatientHomeFrame extends javax.swing.JFrame {
     
     
     
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-         if(StringUtil.isEmpty(txtAge.getText())||StringUtil.isEmpty(txtName.getText())
-                 || bgGender.getSelection()==null||cboxHome.equals(null)){
-            JOptionPane.showMessageDialog(this, "Please provide all required information.");
-         }else{
-             try{
-                patient.setName(txtName.getText());
-                patient.setAge(txtAge.getText());
-                 if(btnMale.isSelected()){
-                     patient.setGender("male");
-                 }else
-                     patient.setGender("female");
-                 patient.setHouse((String)cboxHome.getSelectedItem());
-
-                 PersonDao.updatePatient(patient);
-                 
-                 JOptionPane.showMessageDialog(this, "Successfully update information.");
-             }catch(Exception e){
-                 JOptionPane.showMessageDialog(this, "Update personal information failed.");
-             }
-             
-         }
-         String[] arr={patient.getHouse()};
-         cboxHome.setModel(new DefaultComboBoxModel<String> (arr));
-      // TODO add your handling code here:        
-         readonly();
-         showDetails();
-        try {
-            hospitalTable();
-        } catch (SQLException ex) {
-            Logger.getLogger(PatientHomeFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         btnSave.setEnabled(false);
-         btnUpdate.setEnabled(true);
-         
-    }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void btnPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhotoActionPerformed
-        JFileChooser file_upload = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & PNG Images", "jpg", "png");
-        file_upload.setFileFilter(filter);
-        file_upload.setCurrentDirectory(new File("./img"));
-        int res = file_upload.showOpenDialog(null);
-
-        if(res == JFileChooser.APPROVE_OPTION){
-            File file_path = new File(file_upload.getSelectedFile().getAbsolutePath());
-            photo_path = file_path.toString();
-            ImageIcon photo = new ImageIcon(new ImageIcon(photo_path).getImage().getScaledInstance(110, 130, Image.SCALE_SMOOTH));
-            lblPhoto.setIcon(photo);
-        }
-    }//GEN-LAST:event_btnPhotoActionPerformed
-
-    private void cboxHomeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxHomeItemStateChanged
-        
-        String selectedHouse = (String) cboxHome.getSelectedItem();
-        List<String> comNCity = PersonDao.getComNCity(selectedHouse);
-        
-        cboxCom.removeAllItems();
-        cboxCity.removeAllItems();
-        
-        cboxCom.addItem(comNCity.get(0));
-        cboxCity.addItem(comNCity.get(1));
-    }//GEN-LAST:event_cboxHomeItemStateChanged
-
-    private void cboxHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxHomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboxHomeActionPerformed
-
-    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
-        
-        editall();
-
-        List<String> houses = PersonDao.allHouse();
-        for(String h : houses){
-            cboxHome.addItem(h);
-        }
-
-        btnUpdate.setEnabled(false);
-    }//GEN-LAST:event_btnUpdateMouseClicked
-
     private void btnEncounterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncounterActionPerformed
         int selectedRowIndex = tblEncounters.getSelectedRow();
         if (selectedRowIndex < 0){
@@ -623,9 +511,74 @@ public class PatientHomeFrame extends javax.swing.JFrame {
         encountersFrame.setVisible(true);
     }//GEN-LAST:event_btnEncounterActionPerformed
 
+    private void cboxHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxHomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxHomeActionPerformed
+
+    private void cboxHomeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxHomeItemStateChanged
+
+        String selectedHouse = (String) cboxHome.getSelectedItem();
+        List<String> comNCity = PersonDao.getComNCity(selectedHouse);
+
+        cboxCom.removeAllItems();
+        cboxCity.removeAllItems();
+
+        cboxCom.addItem(comNCity.get(0));
+        cboxCity.addItem(comNCity.get(1));
+    }//GEN-LAST:event_cboxHomeItemStateChanged
+
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if(StringUtil.isEmpty(txtAge.getText())||StringUtil.isEmpty(txtName.getText())
+            || bgGender.getSelection()==null||cboxHome.equals(null)){
+            JOptionPane.showMessageDialog(this, "Please provide all required information.");
+        }else{
+            try{
+                patient.setName(txtName.getText());
+                patient.setAge(txtAge.getText());
+                if(btnMale.isSelected()){
+                    patient.setGender("male");
+                }else
+                patient.setGender("female");
+                patient.setHouse((String)cboxHome.getSelectedItem());
+
+                PersonDao.updatePatient(patient);
+
+                JOptionPane.showMessageDialog(this, "Successfully update information.");
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "Update personal information failed.");
+            }
+
+        }
+        String[] arr={patient.getHouse()};
+        cboxHome.setModel(new DefaultComboBoxModel<String> (arr));
+        // TODO add your handling code here:
+        readonly();
+        showDetails();
+        try {
+            hospitalTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(PatientHomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+
+        editall();
+
+        List<String> houses = PersonDao.allHouse();
+        for(String h : houses){
+            cboxHome.addItem(h);
+        }
+
+        btnUpdate.setEnabled(false);
+    }//GEN-LAST:event_btnUpdateMouseClicked
 
     private void hospitalTable() throws SQLException{
         String userAccount = patient.getAccount();
@@ -700,7 +653,6 @@ public class PatientHomeFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnEncounter;
     private javax.swing.JRadioButton btnFemale;
     private javax.swing.JRadioButton btnMale;
-    private javax.swing.JButton btnPhoto;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnView;
@@ -719,7 +671,6 @@ public class PatientHomeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblName;
-    private javax.swing.JLabel lblPhoto;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblTitle1;
     private javax.swing.JLabel lblTitle2;

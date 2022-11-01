@@ -38,6 +38,9 @@ public class LoginJFrame extends javax.swing.JFrame {
         
         userRole = role;
         initComponents();
+        btnCreateAccount.setVisible(false);
+         if(userRole == "patient")
+             btnCreateAccount.setVisible(true);
 
     }
 
@@ -73,7 +76,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         lblPassword.setText("Password:");
 
-        txtAccount.setText("alice");
+        txtAccount.setText("sysAdmin");
         txtAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAccountActionPerformed(evt);
@@ -94,7 +97,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        pwPassword.setText("a123456");
+        pwPassword.setText("sys123456");
         pwPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pwPasswordActionPerformed(evt);
@@ -120,8 +123,9 @@ public class LoginJFrame extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtAccount)
                                 .addComponent(pwPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCreateAccount))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(btnLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCreateAccount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(0, 58, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -164,6 +168,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             //Initail User
                 
                 if(userRole == "patient"){
+                    
                     Patient patient = PersonDao.patientlogin(account, password);
                     if(patient != null){  
                         PatientHomeFrame patientHomeFrame = new PatientHomeFrame(patient);
@@ -215,7 +220,8 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
-        // TODO add your handling code here:
+        SignUpFrame signUpFrame = new SignUpFrame();
+        signUpFrame.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_btnCreateAccountActionPerformed
 
     private void pwPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwPasswordActionPerformed

@@ -1,6 +1,8 @@
 package dao;
 
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
+import static dao.CommunityDao.con;
+import static dao.CommunityDao.rs;
 import static dao.HospitalDao.con;
 import static dao.HospitalDao.rs;
 import java.sql.Connection;
@@ -59,7 +61,6 @@ public class PersonDao {
                 p.setAge(rs.getString("age"));
                 p.setGender(rs.getString("gender"));
                 p.setHouseId(rs.getInt("houseId"));
-                p.setEncounterHisId(rs.getInt("encounterHisId"));
  
                 return p;
                 }
@@ -441,4 +442,129 @@ public class PersonDao {
         return null;
     }
     
+    public static void updateComAdmin(CommunityAdmin c){
+        int id = c.getId();
+        String name = c.getName();
+        String age = c.getAge();
+        String gender = c.getGender();
+        int comId = c.getComId();
+
+        
+        try{
+            DataSource ds = JDBCUtil.getDataSource();
+            con = ds.getConnection();
+            
+            PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Update persons"
+                    + " set name=?, age=?, gender=?, comId=?"
+                    + " where id=?" );
+            stmt1.setString(1, name);
+            stmt1.setString(2, age);
+            stmt1.setString(3, gender);
+            stmt1.setInt(4, comId);
+            stmt1.setInt(5, id);
+            stmt1.executeUpdate();
+            
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void updateSysAdmin(SystemAdmin c){
+        int id = c.getId();
+        String name = c.getName();
+        String age = c.getAge();
+        String gender = c.getGender();
+
+        
+        try{
+            DataSource ds = JDBCUtil.getDataSource();
+            con = ds.getConnection();
+            
+            PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Update persons"
+                    + " set name=?, age=?, gender=?"
+                    + " where id=?" );
+            stmt1.setString(1, name);
+            stmt1.setString(2, age);
+            stmt1.setString(3, gender);
+            stmt1.setInt(4, id);
+            stmt1.executeUpdate();
+            
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addNewDoc(Doctor d, String hospital) throws SQLException {
+        Doctor doc = d;
+        int hosId = 0;
+        try{
+            DataSource ds = JDBCUtil.getDataSource();
+            con = ds.getConnection();
+            
+            PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select id from  hospitals"
+                    + " where name = ?");
+            stmt1.setString(1, hospital);
+            rs = stmt1.executeQuery();
+            
+            if(rs.next()){
+                hosId = rs.getInt("id");
+            }
+            
+            PreparedStatement stmt = (PreparedStatement) con.prepareStatement("insert into persons "
+                    + "(name, acc, password, role, age, hospitalId, major, gender, workTime) "
+                    + "values "
+                    + "(?, ?, '123456', 'doctor', ?, ?, ?, ?, ?);");
+            stmt.setString(1, doc.getName());
+            stmt.setString(2, doc.getAccount());
+            stmt.setString(3, doc.getAge());
+            stmt.setInt(4, hosId);
+            stmt.setString(5, doc.getMajor());
+            stmt.setString(6, doc.getGender());
+            stmt.setString(7, doc.getWorkTime());
+
+            
+            stmt.executeUpdate();
+            
+        }catch(SQLException e){
+           throw new SQLException();
+        }
+    }
+
+    public static void addNewComminityAdmin(CommunityAdmin comAdmin, String comName) throws SQLException {
+        CommunityAdmin com = comAdmin;
+        int comId = 0;
+        try{
+            DataSource ds = JDBCUtil.getDataSource();
+            con = ds.getConnection();
+            
+            PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select id from  communities"
+                    + " where name = ?");
+            stmt1.setString(1, comName);
+            rs = stmt1.executeQuery();
+            
+            if(rs.next()){
+                comId = rs.getInt("id");
+            }
+            
+            PreparedStatement stmt = (PreparedStatement) con.prepareStatement("insert into persons "
+                    + "(name, acc, password, role, age, comId, gender) "
+                    + "values "
+                    + "(?, ?, '123456', 'comAdmin', ?, ?, ?);");
+            stmt.setString(1, com.getName());
+            stmt.setString(2, com.getAccount());
+            stmt.setString(3, com.getAge());
+            stmt.setInt(4, comId);
+            stmt.setString(5, com.getGender());
+
+            
+            stmt.executeUpdate();
+            
+        }catch(SQLException e){
+            throw new SQLException();
+        }
+    }
 }
+
+        
+        
+    

@@ -4,20 +4,109 @@
  */
 package ui;
 
+import dao.CommunityDao;
+import dao.EncounterDao;
+import dao.PersonDao;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import model.persons.CommunityAdmin;
+import model.persons.Doctor;
 import model.persons.Person;
 import model.persons.SystemAdmin;
+import utils.StringUtil;
 
 /**
  *
  * @author Jiaf
  */
 public class SysAdFrame extends javax.swing.JFrame {
-
+    
+    private SystemAdmin sysAdmin;
     /**
      * Creates new form SysAdFrame
      */
     public SysAdFrame(SystemAdmin sa) {
         initComponents();
+        
+        sysAdmin = sa;
+         showDetails();
+         allCity();
+         allHospital();
+         allCommunities();
+    }
+    
+        
+    public void readonly(){
+        btnSave.setEnabled(false);
+        btnUpdate.setEnabled(true);
+        btnMale.setEnabled(false);
+        btnFemale.setEnabled(false);
+               
+        txtName.setEditable(false);
+        txtAge.setEditable(false);
+        
+    }
+    
+    public void showDetails(){
+
+        readonly();
+        txtName.setText(sysAdmin.getName());
+        txtAge.setText(sysAdmin.getAge());
+   
+
+        if( sysAdmin.getGender().equals("male")){
+            btnMale.setSelected(true);
+            btnFemale.setSelected(false);
+        }
+        else if( sysAdmin.getGender().equals("female")){
+            btnMale.setSelected(false);
+            btnFemale.setSelected(true);
+        }
+        else{
+            btnMale.setSelected(false);
+            btnFemale.setSelected(false);
+        }
+
+    }
+    
+    public void editall(){
+        txtName.setEditable(true);
+        txtAge.setEditable(true);
+        btnMale.setEnabled(true);
+        btnFemale.setEnabled(true);
+        btnSave.setEnabled(true);
+        
+        
+    }
+    
+    public void allCity(){
+        List<String> cities = CommunityDao.allCities();
+        for(String c : cities){
+            cboxCities.addItem(c);
+            cboxCities2.addItem(c);
+        } 
+    }
+    
+    public void allHospital(){
+        List<String> hospitals = CommunityDao.allHospitals();
+        for(String c : hospitals){
+            cboxHospital.addItem(c);
+        } 
+    }
+    
+    public void allCommunities(){
+        List<String> coms = CommunityDao.allComs();
+        for(String c : coms){
+            cboxCommunity.addItem(c);
+        } 
+    }
+    
+    public void allCominCity(){
+        //List<String> cities = CommunityDao.allComInCity();
     }
 
     /**
@@ -29,24 +118,811 @@ public class SysAdFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bgGender = new javax.swing.ButtonGroup();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        btnMale = new javax.swing.JRadioButton();
+        lblName = new javax.swing.JLabel();
+        btnFemale = new javax.swing.JRadioButton();
+        txtName = new javax.swing.JTextField();
+        lblGender = new javax.swing.JLabel();
+        txtAge = new javax.swing.JTextField();
+        lblAge = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        btnSave = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtCity = new javax.swing.JTextField();
+        btnCityCreate = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        cboxCities = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtComName = new javax.swing.JTextField();
+        btnNewCom = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        cboxComs = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        btnNewCom1 = new javax.swing.JButton();
+        cboxCities2 = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        txtHospitalName = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        txtHosAddress = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        btnMale1 = new javax.swing.JRadioButton();
+        lblName1 = new javax.swing.JLabel();
+        btnFemale1 = new javax.swing.JRadioButton();
+        txtDocName = new javax.swing.JTextField();
+        lblGender1 = new javax.swing.JLabel();
+        txtDocAge = new javax.swing.JTextField();
+        lblAge1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtDocMajor = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtDocAcc = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        cboxHospital = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        txtWorkTime = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        lblAge2 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtDocAcc1 = new javax.swing.JTextField();
+        btnMale2 = new javax.swing.JRadioButton();
+        jLabel11 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        lblName2 = new javax.swing.JLabel();
+        cboxCommunity = new javax.swing.JComboBox<>();
+        btnFemale2 = new javax.swing.JRadioButton();
+        txtComAdName = new javax.swing.JTextField();
+        lblGender2 = new javax.swing.JLabel();
+        txtComAdAge = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Management System");
+
+        bgGender.add(btnMale);
+        btnMale.setText("Male");
+
+        lblName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblName.setText("Name:");
+
+        bgGender.add(btnFemale);
+        btnFemale.setText("Female");
+
+        txtName.setEditable(false);
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+
+        lblGender.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblGender.setText("Gender:");
+
+        txtAge.setEditable(false);
+
+        lblAge.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAge.setText("Age:");
+
+        jLabel1.setText("Edit information by click button.");
+
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
+        btnUpdate.setText("Edit");
+        btnUpdate.setFocusPainted(false);
+        btnUpdate.setFocusable(false);
+        btnUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnUpdateMouseClicked(evt);
+            }
+        });
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblGender)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnMale)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnFemale))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(btnUpdate)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnSave))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblName)
+                                .addComponent(lblAge))
+                            .addGap(21, 21, 21)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtAge, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                                .addComponent(txtName)))))
+                .addContainerGap(81, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAge)
+                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGender)
+                    .addComponent(btnMale)
+                    .addComponent(btnFemale))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnSave))
+                .addContainerGap(143, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Personal", jPanel1);
+
+        jLabel2.setText("City Name:");
+
+        txtCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCityActionPerformed(evt);
+            }
+        });
+
+        btnCityCreate.setText("Create");
+        btnCityCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCityCreateActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCityCreate)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(301, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(btnCityCreate)
+                .addContainerGap(221, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("City", jPanel2);
+
+        jLabel3.setText("Selected City:");
+
+        jLabel4.setText("Community Name:");
+
+        btnNewCom.setText("Create Community");
+        btnNewCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewComActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboxCities, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnNewCom)
+                        .addGap(1, 1, 1)))
+                .addContainerGap(251, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboxCities, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnNewCom)
+                .addContainerGap(208, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Community", jPanel3);
+
+        jLabel12.setText("Selected City:");
+
+        jLabel13.setText("Selecte Community:");
+
+        btnNewCom1.setText("Create Community");
+        btnNewCom1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewCom1ActionPerformed(evt);
+            }
+        });
+
+        cboxCities2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboxCities2ItemStateChanged(evt);
+            }
+        });
+
+        jLabel14.setText("Hospital Name:");
+
+        txtHospitalName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtHospitalNameActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setText("Hospital address:");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnNewCom1)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtHospitalName)
+                            .addComponent(cboxComs, 0, 150, Short.MAX_VALUE)
+                            .addComponent(cboxCities2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtHosAddress))))
+                .addContainerGap(197, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(cboxCities2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(cboxComs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(txtHospitalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(txtHosAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addComponent(btnNewCom1)
+                .addContainerGap(128, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 521, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 340, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        jTabbedPane1.addTab("Hospitals", jPanel6);
+
+        bgGender.add(btnMale1);
+        btnMale1.setText("Male");
+
+        lblName1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblName1.setText("Name:");
+
+        bgGender.add(btnFemale1);
+        btnFemale1.setText("Female");
+
+        txtDocName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDocNameActionPerformed(evt);
+            }
+        });
+
+        lblGender1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblGender1.setText("Gender:");
+
+        lblAge1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAge1.setText("Age:");
+
+        jLabel5.setText("Major:");
+
+        txtDocMajor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDocMajorActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Account:");
+
+        jLabel7.setText("Hospital:");
+
+        jLabel8.setText("Work time:");
+
+        jButton1.setText("New Doctor");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addComponent(btnMale1)
+                .addGap(36, 36, 36)
+                .addComponent(btnFemale1)
+                .addGap(343, 343, 343))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(lblGender1)
+                            .addComponent(lblAge1)
+                            .addComponent(lblName1))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtWorkTime)
+                            .addComponent(cboxHospital, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDocAcc)
+                            .addComponent(txtDocMajor)
+                            .addComponent(txtDocAge)
+                            .addComponent(txtDocName))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblName1)
+                    .addComponent(txtDocName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAge1)
+                    .addComponent(txtDocAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGender1)
+                    .addComponent(btnMale1)
+                    .addComponent(btnFemale1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDocMajor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDocAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(cboxHospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtWorkTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(80, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Doctor", jPanel4);
+
+        jPanel5.setPreferredSize(new java.awt.Dimension(600, 400));
+
+        lblAge2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblAge2.setText("Age:");
+
+        jLabel10.setText("Account:");
+
+        bgGender.add(btnMale2);
+        btnMale2.setText("Male");
+
+        jLabel11.setText("Community:");
+
+        jButton2.setText("New Community Manager");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        lblName2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblName2.setText("Name:");
+
+        bgGender.add(btnFemale2);
+        btnFemale2.setText("Female");
+
+        txtComAdName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtComAdNameActionPerformed(evt);
+            }
+        });
+
+        lblGender2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblGender2.setText("Gender:");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addComponent(btnMale2)
+                .addGap(36, 36, 36)
+                .addComponent(btnFemale2)
+                .addGap(343, 343, 343))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10)
+                            .addComponent(lblGender2)
+                            .addComponent(lblAge2)
+                            .addComponent(lblName2))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboxCommunity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDocAcc1)
+                            .addComponent(txtComAdAge)
+                            .addComponent(txtComAdName))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblName2)
+                    .addComponent(txtComAdName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAge2)
+                    .addComponent(txtComAdAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGender2)
+                    .addComponent(btnMale2)
+                    .addComponent(btnFemale2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtDocAcc1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(cboxCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(142, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Community Manager", jPanel5);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        editall();
+        btnUpdate.setEnabled(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUpdateMouseClicked
+
+    }//GEN-LAST:event_btnUpdateMouseClicked
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if(StringUtil.isEmpty(txtAge.getText())||StringUtil.isEmpty(txtName.getText())){
+            JOptionPane.showMessageDialog(this, "Please provide all required information.");
+        }else{
+            try{
+                sysAdmin.setName(txtName.getText());
+                sysAdmin.setAge(txtAge.getText());
+                if(btnMale.isSelected()){
+                    sysAdmin.setGender("male");
+                }else
+                sysAdmin.setGender("female");
+                PersonDao.updateSysAdmin(sysAdmin);
+                JOptionPane.showMessageDialog(this, "Successfully update information.");
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "Update personal information failed.");
+            }
+
+        }
+        // TODO add your handling code here:
+        readonly();
+        showDetails();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
+    private void txtCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCityActionPerformed
+
+    private void txtDocNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDocNameActionPerformed
+
+    private void txtDocMajorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocMajorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDocMajorActionPerformed
+
+    private void txtComAdNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtComAdNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtComAdNameActionPerformed
+
+    private void txtHospitalNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHospitalNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtHospitalNameActionPerformed
+
+    private void btnCityCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCityCreateActionPerformed
+        if(StringUtil.isEmpty(txtCity.getText())){
+            JOptionPane.showMessageDialog(this, "Please provide all required information.");
+        }else{
+        try{
+            CommunityDao.addNewCity(txtCity.getText());
+            JOptionPane.showMessageDialog(this, "Successfully update information.");
+        }
+        
+    catch(Exception e){
+        JOptionPane.showMessageDialog(this, "City already exists, please change name.");
+            } }       // TODO add your handling code here:
+    }//GEN-LAST:event_btnCityCreateActionPerformed
+
+    private void btnNewComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewComActionPerformed
+        if(StringUtil.isEmpty(txtComName.getText())){
+            JOptionPane.showMessageDialog(this, "Please provide new Community name.");
+        }else{
+            try{
+            CommunityDao.addNewCommunity(cboxCities.getSelectedItem().toString(),txtComName.getText());
+            JOptionPane.showMessageDialog(this, "Successfully update information.");
+            }  
+    catch(Exception e){
+        JOptionPane.showMessageDialog(this, "Community already exist. Please use another name.");
+            }
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNewComActionPerformed
+
+    private void cboxCities2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboxCities2ItemStateChanged
+        List<String> coms = CommunityDao.allComsInCity(cboxCities2.getSelectedItem().toString());
+        
+        cboxComs.removeAllItems();
+        for(String c : coms){
+            cboxComs.addItem(c);
+        } 
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxCities2ItemStateChanged
+
+    private void btnNewCom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewCom1ActionPerformed
+        if(StringUtil.isEmpty(txtHosAddress.getText())||StringUtil.isEmpty(txtHospitalName.getText())){
+            JOptionPane.showMessageDialog(this, "Please provide new Community name.");
+        }else{
+        try{CommunityDao.addNewHospital(txtHosAddress.getText(), cboxComs.getSelectedItem().toString(),
+                txtHospitalName.getText());
+                JOptionPane.showMessageDialog(this, "Successfully add new hospital.");
+        }catch(Exception e){ JOptionPane.showMessageDialog(this, "Hospital already exist!!!.");}
+        
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNewCom1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Doctor d = new Doctor();
+        String hospital = cboxHospital.getSelectedItem().toString();
+        d.setName(txtDocName.getText());
+        d.setAge(txtDocAge.getText());
+        d.setWorkTime(txtWorkTime.getText());
+        d.setMajor(txtDocMajor.getText());
+        d.setAccount(txtDocAcc.getText());
+        if(btnMale1.isSelected()){
+            d.setGender("male");
+         }else
+            d.setGender("female");
+        
+        try {
+            PersonDao.addNewDoc(d, hospital);
+            // TODO add your handling code here:
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Doctor already exist!!!.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        CommunityAdmin comAdmin = new CommunityAdmin();
+        String comName = cboxCommunity.getSelectedItem().toString();
+        
+        comAdmin.setName(txtComAdName.getText());
+        comAdmin.setAge(txtComAdAge.getText());
+        comAdmin.setAccount(txtDocAcc1.getText());
+        if(btnMale2.isSelected()){
+            comAdmin.setGender("male");
+         }else
+            comAdmin.setGender("female");
+        
+        try {
+            PersonDao.addNewComminityAdmin(comAdmin, comName);
+// TODO add your handling code here:
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Community Administer already exist!!!.");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bgGender;
+    private javax.swing.JButton btnCityCreate;
+    private javax.swing.JRadioButton btnFemale;
+    private javax.swing.JRadioButton btnFemale1;
+    private javax.swing.JRadioButton btnFemale2;
+    private javax.swing.JRadioButton btnMale;
+    private javax.swing.JRadioButton btnMale1;
+    private javax.swing.JRadioButton btnMale2;
+    private javax.swing.JButton btnNewCom;
+    private javax.swing.JButton btnNewCom1;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cboxCities;
+    private javax.swing.JComboBox<String> cboxCities2;
+    private javax.swing.JComboBox<String> cboxCommunity;
+    private javax.swing.JComboBox<String> cboxComs;
+    private javax.swing.JComboBox<String> cboxHospital;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lblAge;
+    private javax.swing.JLabel lblAge1;
+    private javax.swing.JLabel lblAge2;
+    private javax.swing.JLabel lblGender;
+    private javax.swing.JLabel lblGender1;
+    private javax.swing.JLabel lblGender2;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblName1;
+    private javax.swing.JLabel lblName2;
+    private javax.swing.JTextField txtAge;
+    private javax.swing.JTextField txtCity;
+    private javax.swing.JTextField txtComAdAge;
+    private javax.swing.JTextField txtComAdName;
+    private javax.swing.JTextField txtComName;
+    private javax.swing.JTextField txtDocAcc;
+    private javax.swing.JTextField txtDocAcc1;
+    private javax.swing.JTextField txtDocAge;
+    private javax.swing.JTextField txtDocMajor;
+    private javax.swing.JTextField txtDocName;
+    private javax.swing.JTextField txtHosAddress;
+    private javax.swing.JTextField txtHospitalName;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtWorkTime;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,7 @@
  */
 package ui;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 
 /**
  *
@@ -36,7 +38,6 @@ public class RoleFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lbPatient = new javax.swing.JLabel();
@@ -53,113 +54,83 @@ public class RoleFrame extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(800, 600));
 
-        jPanel1.setBackground(new java.awt.Color(241, 250, 238));
-        jPanel1.setPreferredSize(new java.awt.Dimension(450, 400));
-
-        jLabel1.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(29, 72, 197));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Welcome to Hospital Management System!");
 
-        jLabel2.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(69, 123, 157));
         jLabel2.setText("Please tell us who are you?");
 
-        lbPatient.setFont(new java.awt.Font("Monaco", 0, 14)); // NOI18N
-        lbPatient.setForeground(new java.awt.Color(29, 53, 87));
         lbPatient.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbPatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/patient.png"))); // NOI18N
         lbPatient.setText("Patient");
+        lbPatient.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lbPatient.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbPatient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbPatientMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lbPatientMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lbPatientMouseExited(evt);
-            }
         });
 
-        lbDoctor.setFont(lbPatient.getFont());
-        lbDoctor.setForeground(new java.awt.Color(29, 53, 87));
         lbDoctor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbDoctor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/doctor.png"))); // NOI18N
         lbDoctor.setText("Doctor");
+        lbDoctor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lbDoctor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbDoctor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbDoctorMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lbDoctorMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lbDoctorMouseExited(evt);
-            }
         });
 
-        lbComAdm.setFont(lbPatient.getFont());
-        lbComAdm.setForeground(new java.awt.Color(29, 53, 87));
         lbComAdm.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbComAdm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/comAdmin.png"))); // NOI18N
         lbComAdm.setText("Community Administar");
+        lbComAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lbComAdm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbComAdm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbComAdmMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lbComAdmMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lbComAdmMouseExited(evt);
-            }
         });
 
-        lbSysAdm.setFont(lbPatient.getFont());
         lbSysAdm.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbSysAdm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/admin.png"))); // NOI18N
         lbSysAdm.setText("System Manager");
+        lbSysAdm.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        lbSysAdm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lbSysAdm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbSysAdmMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lbSysAdmMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lbSysAdmMouseExited(evt);
-            }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbSysAdm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbComAdm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbDoctor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbPatient, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(37, Short.MAX_VALUE))
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lbDoctor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbComAdm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbPatient, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbSysAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addGap(48, 48, 48)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lbPatient)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbDoctor)
@@ -167,62 +138,13 @@ public class RoleFrame extends javax.swing.JFrame {
                 .addComponent(lbComAdm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbSysAdm)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbComAdm, lbDoctor, lbPatient, lbSysAdm});
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-        );
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lbComAdm, lbDoctor, lbPatient, lbSysAdm});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lbPatientMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbPatientMouseEntered
-        lbPatient.setForeground(Color.decode("#E63946"));        // TODO add your handling code here:
-    }//GEN-LAST:event_lbPatientMouseEntered
-
-    private void lbPatientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbPatientMouseExited
-        lbPatient.setForeground(Color.black);
-    }//GEN-LAST:event_lbPatientMouseExited
-
-    private void lbDoctorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDoctorMouseEntered
-        // TODO add your handling code here:
-        lbDoctor.setForeground(Color.decode("#E63946"));    
-    }//GEN-LAST:event_lbDoctorMouseEntered
-
-    private void lbDoctorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDoctorMouseExited
-        // TODO add your handling code here:
-        lbDoctor.setForeground(Color.black);
-    }//GEN-LAST:event_lbDoctorMouseExited
-
-    private void lbComAdmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbComAdmMouseEntered
-        // TODO add your handling code here:        
-        lbComAdm.setForeground(Color.decode("#E63946")); 
-    }//GEN-LAST:event_lbComAdmMouseEntered
-
-    private void lbComAdmMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbComAdmMouseExited
-        // TODO add your handling code here:
-        lbComAdm.setForeground(Color.black);
-    }//GEN-LAST:event_lbComAdmMouseExited
-
-    private void lbSysAdmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSysAdmMouseEntered
-        // TODO add your handling code here:
-        lbSysAdm.setForeground(Color.decode("#E63946"));  
-    }//GEN-LAST:event_lbSysAdmMouseEntered
-
-    private void lbSysAdmMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSysAdmMouseExited
-        // TODO add your handling code here:
-        lbSysAdm.setForeground(Color.black);
-    }//GEN-LAST:event_lbSysAdmMouseExited
 
     private void lbPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbPatientMouseClicked
         
@@ -259,22 +181,12 @@ public class RoleFrame extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RoleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RoleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RoleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RoleFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        FlatDarkLaf.setup();
+        UIManager.put( "Button.arc", 999 );
+        UIManager.put( "Component.arc", 999 );
+        UIManager.put( "ProgressBar.arc", 999 );
+        UIManager.put( "TextComponent.arc", 999 );
+       
         //</editor-fold>
 
         /* Create and display the form */
@@ -288,7 +200,6 @@ public class RoleFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbComAdm;
     private javax.swing.JLabel lbDoctor;
     private javax.swing.JLabel lbPatient;
