@@ -74,8 +74,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" + "id=" + id + ", account=" + account + ", password=" + password +
-                ", name=" + name + ", age=" + age + ", gender=" + gender + ", role=" + role + '}';
+        return name;
     }
     
     

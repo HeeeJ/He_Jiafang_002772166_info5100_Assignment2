@@ -563,6 +563,32 @@ public class PersonDao {
             throw new SQLException();
         }
     }
+
+    public static List<Person> allUsers() {
+        List<Person> allPersons = new ArrayList<>();
+        try{
+            DataSource ds = JDBCUtil.getDataSource();
+            con = ds.getConnection();
+            
+            PreparedStatement stmt = (PreparedStatement) con.prepareStatement("Select * from persons;");
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){        
+                Person p = new Person();
+                p.setName(rs.getString("name"));;
+                p.setAccount(rs.getString("acc"));
+                p.setRole(rs.getString("role"));
+
+                allPersons.add(p);
+            }
+            
+            return allPersons;
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("CANNOT FIND All HOUSE.");
+        }
+        return null;
+    }
 }
 
         

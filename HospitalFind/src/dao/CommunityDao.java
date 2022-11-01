@@ -306,5 +306,66 @@ public class CommunityDao {
             throw new SQLException();
         }
         }
+
+    public static void deleteCity(String selectedCityName) {
+        int cityId = 0;
+        List<Integer> comId = new ArrayList<>();
+        
+        try{
+            DataSource ds = JDBCUtil.getDataSource();
+            con = ds.getConnection();
+            
+            PreparedStatement stmt1 = (PreparedStatement) con.prepareStatement("Select id from  cities"
+                    + " where name = ?");
+            stmt1.setString(1, selectedCityName);
+            rs = stmt1.executeQuery();
+            
+            if(rs.next()){
+                cityId = rs.getInt("id");
+            }
+            
+            PreparedStatement stmt2 = (PreparedStatement) con.prepareStatement("Select id from  communities"
+                    + " where cityId = ?");
+            stmt2.setInt(1, cityId);
+            rs = stmt2.executeQuery();
+            
+            while(rs.next()){
+                Integer com = rs.getInt("id");
+                comId.add(com); 
+            }
+            
+            //Delete all houses.
+            for(int c : comId){
+            PreparedStatement stmt3 = (PreparedStatement) con.prepareStatement("Delete from houses"
+                    + " where comId = ?");
+            stmt3.setInt(1, c);
+            stmt3.executeUpdate();
+            }
+                
+            //Delete community in city
+            for(int c : comId){
+            PreparedStatement stmt4 = (PreparedStatement) con.prepareStatement("Delete from communities"
+                    + " where id = ?");
+            stmt4.setInt(1, c);
+            stmt4.executeUpdate();
+            }
+            
+            //Delete city
+            PreparedStatement stmt4 = (PreparedStatement) con.prepareStatement("Delete from cities"
+                    + " where id = ?");
+            stmt4.setInt(1, cityId);
+            stmt4.executeUpdate();
+            
+            
+        }catch(SQLException e){
+        }
+        }
+
+    public static void deleteUser(String selectedUser) throws SQLException {
+        PreparedStatement stmt4 = (PreparedStatement) con.prepareStatement("Delete from persons"
+                    + " where acc = ?");
+        stmt4.setString(1, selectedUser);
+        stmt4.executeUpdate();
+    }
+    }
     
-}

@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.persons.CommunityAdmin;
 import model.persons.Doctor;
 import model.persons.Person;
@@ -34,11 +35,18 @@ public class SysAdFrame extends javax.swing.JFrame {
         
         sysAdmin = sa;
          showDetails();
-         allCity();
-         allHospital();
-         allCommunities();
+         reload();
     }
     
+    public void reload(){
+        allCity();
+         allHospital();
+         allCommunities();
+         tblHospitals();
+         tblCities();
+         tblCommunities();
+         tblPersons();
+    }
         
     public void readonly(){
         btnSave.setEnabled(false);
@@ -93,9 +101,42 @@ public class SysAdFrame extends javax.swing.JFrame {
     
     public void allHospital(){
         List<String> hospitals = CommunityDao.allHospitals();
+        DefaultTableModel model = (DefaultTableModel) tblCity.getModel();
         for(String c : hospitals){
             cboxHospital.addItem(c);
-        } 
+        }
+
+
+    }
+    
+    public void tblHospitals(){
+        List<String> hospitals = CommunityDao.allHospitals();
+        DefaultTableModel model = (DefaultTableModel) tblHospitals.getModel();
+        model.setRowCount(0);
+        for(int i = 0; i<hospitals.size(); i++){
+            Object[] row = new Object[ ]{hospitals.get(i)};
+            model.addRow( row);
+        }
+    }
+    
+    public void tblCities(){
+        List<String> hospitals = CommunityDao.allCities();
+        DefaultTableModel model = (DefaultTableModel) tblCity.getModel();
+        model.setRowCount(0);
+        for(int i= hospitals.size()-1; i>=0; i--){
+            Object[] row = new Object[ ]{hospitals.get(i)};
+            model.addRow( row);
+        }
+    }
+    
+    public void tblCommunities(){
+        List<String> hospitals = CommunityDao.allComs();
+        DefaultTableModel model = (DefaultTableModel) tblCommunities.getModel();
+        model.setRowCount(0);
+        for(int i= hospitals.size()-1; i>=0; i--){
+            Object[] row = new Object[ ]{hospitals.get(i)};
+            model.addRow( row);
+        }
     }
     
     public void allCommunities(){
@@ -105,8 +146,22 @@ public class SysAdFrame extends javax.swing.JFrame {
         } 
     }
     
-    public void allCominCity(){
-        //List<String> cities = CommunityDao.allComInCity();
+    public void tblPersons(){
+        
+        List<Person> persons = PersonDao.allUsers();
+        DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
+        model.setRowCount(0);
+        
+        for (Person p: persons){
+            Object [] row = new Object[3];
+            row[0] = p;
+            row[1] = p.getAccount();
+            row[2] = p.getRole();
+            
+            model.addRow(row);
+        }
+        
+        
     }
 
     /**
@@ -135,12 +190,17 @@ public class SysAdFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtCity = new javax.swing.JTextField();
         btnCityCreate = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCity = new javax.swing.JTable();
+        btnDeleteCity = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         cboxCities = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtComName = new javax.swing.JTextField();
         btnNewCom = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblCommunities = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         cboxComs = new javax.swing.JComboBox<>();
@@ -152,6 +212,8 @@ public class SysAdFrame extends javax.swing.JFrame {
         txtHospitalName = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         txtHosAddress = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblHospitals = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         btnMale1 = new javax.swing.JRadioButton();
         lblName1 = new javax.swing.JLabel();
@@ -182,6 +244,10 @@ public class SysAdFrame extends javax.swing.JFrame {
         txtComAdName = new javax.swing.JTextField();
         lblGender2 = new javax.swing.JLabel();
         txtComAdAge = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblUser = new javax.swing.JTable();
+        btnDeletePerson = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Management System");
@@ -287,7 +353,7 @@ public class SysAdFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
                     .addComponent(btnSave))
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Personal", jPanel1);
@@ -307,30 +373,71 @@ public class SysAdFrame extends javax.swing.JFrame {
             }
         });
 
+        tblCity.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "All Cities"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblCity.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblCity);
+        if (tblCity.getColumnModel().getColumnCount() > 0) {
+            tblCity.getColumnModel().getColumn(0).setResizable(false);
+        }
+
+        btnDeleteCity.setText("Delete City");
+        btnDeleteCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteCityActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCityCreate)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeleteCity))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(301, Short.MAX_VALUE))
+                        .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCityCreate)))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnCityCreate)
-                .addContainerGap(221, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDeleteCity)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCityCreate))
+                        .addGap(29, 29, 29)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("City", jPanel2);
@@ -346,13 +453,39 @@ public class SysAdFrame extends javax.swing.JFrame {
             }
         });
 
+        tblCommunities.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "All communities"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblCommunities.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tblCommunities);
+        if (tblCommunities.getColumnModel().getColumnCount() > 0) {
+            tblCommunities.getColumnModel().getColumn(0).setResizable(false);
+        }
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -360,11 +493,11 @@ public class SysAdFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cboxCities, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnNewCom)
-                        .addGap(1, 1, 1)))
-                .addContainerGap(251, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnNewCom)))))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,10 +509,11 @@ public class SysAdFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnNewCom)
-                .addContainerGap(208, Short.MAX_VALUE))
+                    .addComponent(txtComName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNewCom))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Community", jPanel3);
@@ -411,14 +545,39 @@ public class SysAdFrame extends javax.swing.JFrame {
 
         jLabel15.setText("Hospital address:");
 
+        tblHospitals.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "All Hospitals"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblHospitals.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tblHospitals);
+        if (tblHospitals.getColumnModel().getColumnCount() > 0) {
+            tblHospitals.getColumnModel().getColumn(0).setResizable(false);
+        }
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnNewCom1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13)
@@ -428,15 +587,17 @@ public class SysAdFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtHospitalName)
-                            .addComponent(cboxComs, 0, 150, Short.MAX_VALUE)
+                            .addComponent(cboxComs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cboxCities2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtHosAddress))))
-                .addContainerGap(197, Short.MAX_VALUE))
+                            .addComponent(txtHosAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnNewCom1)
+                .addGap(16, 16, 16))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(cboxCities2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -451,26 +612,27 @@ public class SysAdFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(txtHosAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addComponent(btnNewCom1)
-                .addContainerGap(128, Short.MAX_VALUE))
+                    .addComponent(txtHosAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNewCom1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 521, Short.MAX_VALUE)
+            .addGap(0, 479, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(20, Short.MAX_VALUE)))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
+            .addGap(0, 304, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -591,7 +753,7 @@ public class SysAdFrame extends javax.swing.JFrame {
                     .addComponent(txtWorkTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Doctor", jPanel4);
@@ -687,24 +849,65 @@ public class SysAdFrame extends javax.swing.JFrame {
                     .addComponent(cboxCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Community Manager", jPanel5);
+
+        tblUser.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Name", "Account", "Role"
+            }
+        ));
+        jScrollPane4.setViewportView(tblUser);
+
+        btnDeletePerson.setText("Delete Person");
+        btnDeletePerson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletePersonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeletePerson))
+                .addGap(16, 16, 16))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDeletePerson)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("All Users", jPanel8);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 31, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -773,7 +976,9 @@ public class SysAdFrame extends javax.swing.JFrame {
         try{
             CommunityDao.addNewCity(txtCity.getText());
             JOptionPane.showMessageDialog(this, "Successfully update information.");
+            reload();
         }
+        
         
     catch(Exception e){
         JOptionPane.showMessageDialog(this, "City already exists, please change name.");
@@ -787,6 +992,7 @@ public class SysAdFrame extends javax.swing.JFrame {
             try{
             CommunityDao.addNewCommunity(cboxCities.getSelectedItem().toString(),txtComName.getText());
             JOptionPane.showMessageDialog(this, "Successfully update information.");
+            reload();
             }  
     catch(Exception e){
         JOptionPane.showMessageDialog(this, "Community already exist. Please use another name.");
@@ -812,6 +1018,7 @@ public class SysAdFrame extends javax.swing.JFrame {
         try{CommunityDao.addNewHospital(txtHosAddress.getText(), cboxComs.getSelectedItem().toString(),
                 txtHospitalName.getText());
                 JOptionPane.showMessageDialog(this, "Successfully add new hospital.");
+                reload();
         }catch(Exception e){ JOptionPane.showMessageDialog(this, "Hospital already exist!!!.");}
         
         }        // TODO add your handling code here:
@@ -832,6 +1039,7 @@ public class SysAdFrame extends javax.swing.JFrame {
         
         try {
             PersonDao.addNewDoc(d, hospital);
+            reload();
             // TODO add your handling code here:
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Doctor already exist!!!.");
@@ -852,16 +1060,50 @@ public class SysAdFrame extends javax.swing.JFrame {
         
         try {
             PersonDao.addNewComminityAdmin(comAdmin, comName);
+            reload();
 // TODO add your handling code here:
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Community Administer already exist!!!.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void btnDeleteCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCityActionPerformed
+        int selectedRowIndex = tblCity.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tblCity.getModel();
+        if(selectedRowIndex<0)
+            JOptionPane.showMessageDialog(this, "Please selected a row to delete.");
+        
+        String selectedCityName = (String) model.getValueAt(selectedRowIndex, 0);
+        CommunityDao.deleteCity(selectedCityName);
+        
+        JOptionPane.showMessageDialog(this, "City and all communities in it deteled.");
+        reload();
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteCityActionPerformed
+
+    private void btnDeletePersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePersonActionPerformed
+        int selectedRowIndex = tblUser.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
+        if(selectedRowIndex<0)
+            JOptionPane.showMessageDialog(this, "Please selected a row to delete.");
+        
+        String selectedUser = (String) model.getValueAt(selectedRowIndex, 1);
+        try {
+            CommunityDao.deleteUser(selectedUser);
+        } catch (SQLException ex) {
+            Logger.getLogger(SysAdFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        JOptionPane.showMessageDialog(this, "Selected user deleted.");
+        reload();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeletePersonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgGender;
     private javax.swing.JButton btnCityCreate;
+    private javax.swing.JButton btnDeleteCity;
+    private javax.swing.JButton btnDeletePerson;
     private javax.swing.JRadioButton btnFemale;
     private javax.swing.JRadioButton btnFemale1;
     private javax.swing.JRadioButton btnFemale2;
@@ -900,6 +1142,11 @@ public class SysAdFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lblAge;
     private javax.swing.JLabel lblAge1;
@@ -910,6 +1157,10 @@ public class SysAdFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblName1;
     private javax.swing.JLabel lblName2;
+    private javax.swing.JTable tblCity;
+    private javax.swing.JTable tblCommunities;
+    private javax.swing.JTable tblHospitals;
+    private javax.swing.JTable tblUser;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtComAdAge;
