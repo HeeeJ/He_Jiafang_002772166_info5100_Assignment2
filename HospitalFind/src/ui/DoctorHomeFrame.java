@@ -74,8 +74,6 @@ public class DoctorHomeFrame extends javax.swing.JFrame {
         lblGender = new javax.swing.JLabel();
         txtAge = new javax.swing.JTextField();
         lblAge = new javax.swing.JLabel();
-        btnPhoto = new javax.swing.JButton();
-        lblPhoto = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
@@ -151,14 +149,6 @@ public class DoctorHomeFrame extends javax.swing.JFrame {
         lblAge.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblAge.setText("Age:");
 
-        btnPhoto.setFont(new java.awt.Font("Monaco", 0, 12)); // NOI18N
-        btnPhoto.setText("Choose Photo");
-        btnPhoto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPhotoActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Monaco", 0, 8)); // NOI18N
         jLabel1.setText("Edit information by click button.");
 
@@ -196,13 +186,12 @@ public class DoctorHomeFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblGender)
@@ -222,11 +211,10 @@ public class DoctorHomeFrame extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(13, 13, 13)
                                         .addComponent(txtMajor)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnPhoto))))))
-                .addContainerGap())
+                                .addGap(136, 136, 136))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSave)
@@ -239,38 +227,30 @@ public class DoctorHomeFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(5, 5, 5)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblName)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblAge)
-                            .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblGender)
-                            .addComponent(btnMale)
-                            .addComponent(btnFemale)))
-                    .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAge)
+                    .addComponent(txtAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGender)
+                    .addComponent(btnMale)
+                    .addComponent(btnFemale))
                 .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnPhoto)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtMajor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSave)
-                            .addComponent(btnUpdate))
-                        .addGap(68, 68, 68))))
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtMajor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSave)
+                    .addComponent(btnUpdate))
+                .addGap(68, 68, 68))
         );
 
         jTabbedPane1.addTab("Personal", jPanel1);
@@ -525,7 +505,6 @@ public class DoctorHomeFrame extends javax.swing.JFrame {
         btnUpdate.setEnabled(true);
         btnMale.setEnabled(false);
         btnFemale.setEnabled(false);
-        btnPhoto.setEnabled(false);
         
         txtMajor.setEditable(false);
         
@@ -567,7 +546,6 @@ public class DoctorHomeFrame extends javax.swing.JFrame {
         txtAge.setEditable(true);
         btnMale.setEnabled(true);
         btnFemale.setEnabled(true);
-        btnPhoto.setEnabled(true);
         btnSave.setEnabled(true);
         
         txtMajor.setEditable(true);
@@ -612,22 +590,6 @@ public class DoctorHomeFrame extends javax.swing.JFrame {
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
-
-    private void btnPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhotoActionPerformed
-        JFileChooser file_upload = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-            "JPG & PNG Images", "jpg", "png");
-        file_upload.setFileFilter(filter);
-        file_upload.setCurrentDirectory(new File("./img"));
-        int res = file_upload.showOpenDialog(null);
-
-        if(res == JFileChooser.APPROVE_OPTION){
-            File file_path = new File(file_upload.getSelectedFile().getAbsolutePath());
-            String photo_path = file_path.toString();
-            ImageIcon photo = new ImageIcon(new ImageIcon(photo_path).getImage().getScaledInstance(110, 130, Image.SCALE_SMOOTH));
-            lblPhoto.setIcon(photo);
-        }
-    }//GEN-LAST:event_btnPhotoActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if(StringUtil.isEmpty(txtAge.getText())||StringUtil.isEmpty(txtName.getText())
@@ -731,7 +693,6 @@ public class DoctorHomeFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton btnFemale;
     private javax.swing.JRadioButton btnMale;
     private javax.swing.JButton btnNewDiagosis;
-    private javax.swing.JButton btnPhoto;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cboxPatient;
@@ -761,7 +722,6 @@ public class DoctorHomeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblPaAccount;
     private javax.swing.JLabel lblPaAge;
     private javax.swing.JLabel lblPaGender;
-    private javax.swing.JLabel lblPhoto;
     private javax.swing.JLabel lblTitle2;
     private javax.swing.JTable tblEncounters;
     private javax.swing.JTextField txtAge;
