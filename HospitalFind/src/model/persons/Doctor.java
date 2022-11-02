@@ -94,9 +94,4 @@ public class Doctor extends Person{
         return getName();
     }
     
-    
-
-    public void addEncounter(){}
-    public void removeEncounter(){}
-    public void viewEncounter(){}
 }
